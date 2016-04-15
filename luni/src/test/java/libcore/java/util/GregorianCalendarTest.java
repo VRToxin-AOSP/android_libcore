@@ -30,6 +30,22 @@ public class GregorianCalendarTest extends TestCase {
 
     private static final TimeZone LONDON = TimeZone.getTimeZone("Europe/London");
 
+    private Locale defaultLocale;
+
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        defaultLocale = Locale.getDefault();
+        // Most tests are locale independent, but locale does affect start-of-week.
+        Locale.setDefault(Locale.US);
+    }
+
+    @Override
+    public void tearDown() throws Exception {
+        Locale.setDefault(defaultLocale);
+        super.tearDown();
+    }
+
     // Documented a previous difference in behavior between this and the RI, see
     // https://code.google.com/p/android/issues/detail?id=61993 for more details.
     // Switching to OpenJDK has fixed that issue and so this test has been changed to reflect
